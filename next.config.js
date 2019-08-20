@@ -1,9 +1,12 @@
+const withPlugins = require("next-compose-plugins");
+const withTranspileModules = require('next-transpile-modules');
 const withCss = require('@zeit/next-css');
 const withSass = require('@zeit/next-sass');
 const cssLoaderGetLocalIdent = require("css-loader/lib/getLocalIdent.js");
 const path = require('path');
 
-module.exports = withCss(withSass({
+module.exports = withPlugins([withCss, withSass, withTranspileModules], {
+  transpileModules: ['antd-mobile'],
   cssModules: true,
   cssLoaderOptions: {
     getLocalIdent: function(context, localIdentName, localName, options) {
@@ -21,4 +24,4 @@ module.exports = withCss(withSass({
     });
     return config;
   },
-}));
+})
